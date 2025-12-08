@@ -4,33 +4,45 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>ツモリ貯金</title>
+<link rel="stylesheet" href="style.css">
+
+<!-- PWA -->
 <link rel="manifest" href="manifest.json" />
-<style>
-body { font-family: sans-serif; padding: 20px; }
-input, select, button { font-size: 18px; padding: 8px; width: 100%; margin: 8px 0; }
-.entry { padding:10px; border-bottom:1px solid #ccc; }
-.total { font-size: 22px; font-weight: bold; margin-top: 20px; }
-</style>
 </head>
 <body>
 
 <h1>ツモリ貯金</h1>
 
-<label>日付（必須）</label>
-<input type="date" id="date" required />
+<div class="settings">
+  <label>締め日：  
+    <input type="number" id="closingDay" min="1" max="31">
+  </label>
+  <button onclick="saveClosingDay()">保存</button>
+</div>
 
-<label>金額（必須）</label>
-<input type="number" id="amount" placeholder="0" />
+<div class="form">
+  <input type="date" id="dateInput" required>
+  <input type="text" id="amountInput" placeholder="¥0" required>
+  <input type="text" id="noteInput" placeholder="我慢した内容">
+  <button onclick="addRecord()">登録</button>
+</div>
 
-<label>内容（任意）</label>
-<input type="text" id="note" placeholder="何を我慢した？" />
+<h2>今月の合計：<span id="monthlyTotal">¥0</span></h2>
 
-<button onclick="addEntry()">登録</button>
+<div id="encourageBox" class="hidden"></div>
 
-<div class="total" id="monthlyTotal"></div>
 <h2>履歴</h2>
-<div id="history"></div>
+<ul id="historyList"></ul>
 
+<h2>月ごとの集計</h2>
+<ul id="monthlyList"></ul>
+
+<h2>グラフ</h2>
+<canvas id="chartCanvas" width="350" height="250"></canvas>
+
+<button onclick="exportCSV()">CSVを出力</button>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="script.js"></script>
 
 </body>
