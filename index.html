@@ -30,15 +30,25 @@
 <h2>今月の合計：<span id="monthlyTotal">¥0</span></h2>
 
 <div id="encourageBox" class="hidden"></div>
-
+<div class="tabs">
+  <button onclick="showTab('history')">履歴</button>
+  <button onclick="showTab('monthly')">月ごとの集計</button>
+  <button onclick="showTab('chart')">グラフ</button>
+</div>
 <h2>履歴</h2>
-<ul id="historyList"></ul>
+<div id="tab-history">
+  <ul id="historyList"></ul>
+</div>
 
 <h2>月ごとの集計</h2>
-<ul id="monthlyList"></ul>
+<div id="tab-monthly" class="hidden">
+  <ul id="monthlyList"></ul>
+</div>
 
 <h2>グラフ</h2>
-<canvas id="chartCanvas" width="350" height="250"></canvas>
+<div id="tab-chart" class="hidden">
+  <canvas id="chartCanvas" width="350" height="250"></canvas>
+</div>
 
 <button onclick="exportCSV()">CSVを出力</button>
 
