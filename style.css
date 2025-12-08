@@ -1,0 +1,44 @@
+body {
+  font-family: "Hiragino Maru Gothic Pro", sans-serif;
+  padding: 20px;
+  background: linear-gradient(135deg, #f8faff, #ffeef8);
+}
+
+h1, h2 {
+  text-align: center;
+  color: #555;
+}
+
+.form, .settings {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 10px 0;
+  flex-wrap: wrap;
+}
+
+input, button {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+button {
+  background: #ffd0e8;
+  border: none;
+}
+
+#encourageBox {
+  text-align: center;
+  background: #fff6d4;
+  padding: 10px;
+  border-radius: 6px;
+  margin: 10px 0;
+}
+
+.hidden { display: none; }
+
+ul {
+  list-style: none;
+  padding: 5px;
+}
