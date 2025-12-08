@@ -1,0 +1,8 @@
+{
+  "name": "ツモリ貯金",
+  "short_name": "ツモリ貯金",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "description": "買わなかったお金を積み上げるアプリ"
+}
