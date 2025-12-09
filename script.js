@@ -1,3 +1,22 @@
+// 締め日を1〜31まで生成
+function setupClosingDayOptions() {
+  const select = document.getElementById("closingDay");
+  for (let i = 1; i <= 31; i++) {
+    const op = document.createElement("option");
+    op.value = i;
+    op.textContent = i + "日";
+    select.appendChild(op);
+  }
+
+  // すでに保存済みなら選択状態に反映＋非表示
+  const savedDay = localStorage.getItem("closingDay");
+  if (savedDay) {
+    select.value = savedDay;
+    document.querySelector(".settings").style.display = "none";
+  }
+}
+
+setupClosingDayOptions();
 // 締め日を1〜31まで自動生成
 function setupClosingDayOptions() {
   const select = document.getElementById("closingDay");
@@ -46,7 +65,21 @@ function addEntry() {
   saveEntries(entries);
   render();
 }
+function saveClosingDay() {
+  const select = document.getElementById("closingDay");
+  const day = select.value;
 
+  if (!day) {
+    alert("締め日を選択してください");
+    return;
+  }
+
+  localStorage.setItem("closingDay", day);
+  alert("締め日を保存しました！");
+
+  // 一度設定したら締め日UIを非表示にする
+  document.querySelector(".settings").style.display = "none";
+}
 function render() {
   const entries = loadEntries();
   const historyDiv = document.getElementById("history");
