@@ -15,7 +15,10 @@
 
 <div class="settings">
   <label>締め日：  
-    <input type="number" id="closingDay" min="1" max="31">
+    <label for="closingDay">締め日：</label>
+<select id="closingDay">
+  <option value="">選択してください</option>
+</select>
   </label>
   <button onclick="saveClosingDay()">保存</button>
 </div>
