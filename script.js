@@ -1,23 +1,4 @@
-// 締め日を1〜31まで生成
-function setupClosingDayOptions() {
-  const select = document.getElementById("closingDay");
-  for (let i = 1; i <= 31; i++) {
-    const op = document.createElement("option");
-    op.value = i;
-    op.textContent = i + "日";
-    select.appendChild(op);
-  }
-
-  // すでに保存済みなら選択状態に反映＋非表示
-  const savedDay = localStorage.getItem("closingDay");
-  if (savedDay) {
-    select.value = savedDay;
-    document.querySelector(".settings").style.display = "none";
-  }
-}
-
-setupClosingDayOptions();
-// 締め日を1〜31まで自動生成
+// 締め日選択肢生成＋保存済み反映
 function setupClosingDayOptions() {
   const select = document.getElementById("closingDay");
   for (let i = 1; i <= 31; i++) {
@@ -26,21 +7,28 @@ function setupClosingDayOptions() {
     option.textContent = i + "日";
     select.appendChild(option);
   }
+
+  const savedDay = localStorage.getItem("closingDay");
+  if (savedDay) {
+    select.value = savedDay;
+    document.querySelector(".settings").style.display = "none";
+  }
 }
 
-setupClosingDayOptions();
 function saveClosingDay() {
-  const day = document.getElementById("closingDay").value;
+  const select = document.getElementById("closingDay");
+  const day = select.value;
+
   if (!day) {
     alert("締め日を選択してください");
     return;
   }
+
   localStorage.setItem("closingDay", day);
   alert("締め日を保存しました！");
-
-  // 非表示にする
-  document.getElementById("closingDay").parentElement.style.display = "none";
+  document.querySelector(".settings").style.display = "none";
 }
+
 function loadEntries() {
   return JSON.parse(localStorage.getItem("entries") || "[]");
 }
@@ -65,32 +53,31 @@ function addEntry() {
   saveEntries(entries);
   render();
 }
-function saveClosingDay() {
-  const select = document.getElementById("closingDay");
-  const day = select.value;
 
-  if (!day) {
-    alert("締め日を選択してください");
-    return;
-  }
-
-  localStorage.setItem("closingDay", day);
-  alert("締め日を保存しました！");
-
-  // 一度設定したら締め日UIを非表示にする
-  document.querySelector(".settings").style.display = "none";
-}
 function render() {
   const entries = loadEntries();
   const historyDiv = document.getElementById("history");
   historyDiv.innerHTML = "";
 
   let monthlySum = 0;
-  const currentMonth = new Date().getMonth();
+  const closingDay = Number(localStorage.getItem("closingDay") || 31);
+  const today = new Date();
+
+  // 締め日を考慮した「今月」の範囲を計算
+  let start, end;
+  if (today.getDate() > closingDay) {
+    // 締め日を過ぎている → 今月締め期間は「今月の締め日翌日〜来月締め日」
+    start = new Date(today.getFullYear(), today.getMonth(), closingDay + 1);
+    end = new Date(today.getFullYear(), today.getMonth() + 1, closingDay);
+  } else {
+    // 締め日前 → 前月締め日翌日〜今月締め日
+    start = new Date(today.getFullYear(), today.getMonth() - 1, closingDay + 1);
+    end = new Date(today.getFullYear(), today.getMonth(), closingDay);
+  }
 
   entries.forEach(e => {
     const d = new Date(e.date);
-    if (d.getMonth() === currentMonth) monthlySum += e.amount;
+    if (d >= start && d <= end) monthlySum += e.amount;
 
     const div = document.createElement("div");
     div.className = "entry";
@@ -102,4 +89,5 @@ function render() {
     `今月の合計：¥${monthlySum.toLocaleString()}`;
 }
 
+setupClosingDayOptions();
 render();
