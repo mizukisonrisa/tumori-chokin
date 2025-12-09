@@ -10,6 +10,18 @@ function setupClosingDayOptions() {
 }
 
 setupClosingDayOptions();
+function saveClosingDay() {
+  const day = document.getElementById("closingDay").value;
+  if (!day) {
+    alert("締め日を選択してください");
+    return;
+  }
+  localStorage.setItem("closingDay", day);
+  alert("締め日を保存しました！");
+
+  // 非表示にする
+  document.getElementById("closingDay").parentElement.style.display = "none";
+}
 function loadEntries() {
   return JSON.parse(localStorage.getItem("entries") || "[]");
 }
