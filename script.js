@@ -1,3 +1,15 @@
+// 締め日を1〜31まで自動生成
+function setupClosingDayOptions() {
+  const select = document.getElementById("closingDay");
+  for (let i = 1; i <= 31; i++) {
+    const option = document.createElement("option");
+    option.value = i;
+    option.textContent = i + "日";
+    select.appendChild(option);
+  }
+}
+
+setupClosingDayOptions();
 function loadEntries() {
   return JSON.parse(localStorage.getItem("entries") || "[]");
 }
