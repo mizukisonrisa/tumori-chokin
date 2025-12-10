@@ -38,9 +38,10 @@ function saveEntries(entries) {
 }
 
 function addEntry() {
-const date = document.getElementById("dateInput").value;
-const amount = document.getElementById("amountInput").value;
-const note = document.getElementById("noteInput").value;
+  const date = document.getElementById("dateInput").value;
+  const amount = document.getElementById("amountInput").value;
+  const note = document.getElementById("noteInput").value;
+
   if (!date || !amount) {
     alert("日付と金額は必須です");
     return;
@@ -62,16 +63,14 @@ function render() {
   const closingDay = Number(localStorage.getItem("closingDay") || 31);
   const today = new Date();
 
-  // 締め日を考慮した「今月」の範囲を計算
+  // 締め日を考慮した期間計算
   let start, end;
   if (today.getDate() > closingDay) {
-    // 締め日を過ぎている → 今月締め期間は「今月の締め日翌日〜来月締め日」
     start = new Date(today.getFullYear(), today.getMonth(), closingDay + 1);
-    end = new Date(today.getFullYear(), today.getMonth() + 1, closingDay);
+    end   = new Date(today.getFullYear(), today.getMonth() + 1, closingDay);
   } else {
-    // 締め日前 → 前月締め日翌日〜今月締め日
     start = new Date(today.getFullYear(), today.getMonth() - 1, closingDay + 1);
-    end = new Date(today.getFullYear(), today.getMonth(), closingDay);
+    end   = new Date(today.getFullYear(), today.getMonth(), closingDay);
   }
 
   entries.forEach(e => {
@@ -89,10 +88,12 @@ function render() {
 }
 
 setupClosingDayOptions();
+render();   // ← ★これが重要！
+
+// タブ切り替え
 function showTab(tab) {
   document.getElementById("tab-history").classList.add("hidden");
   document.getElementById("tab-monthly").classList.add("hidden");
   document.getElementById("tab-chart").classList.add("hidden");
 
-  document.getElementById("tab-" + tab).classList.remove("hidden");
-}
+  document.getElementById("tab-" + tab).classList.remove("hidden");}
