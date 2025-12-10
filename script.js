@@ -38,10 +38,9 @@ function saveEntries(entries) {
 }
 
 function addEntry() {
-  const date = document.getElementById("date").value;
-  const amount = document.getElementById("amount").value;
-  const note = document.getElementById("note").value;
-
+const date = document.getElementById("dateInput").value;
+const amount = document.getElementById("amountInput").value;
+const note = document.getElementById("noteInput").value;
   if (!date || !amount) {
     alert("日付と金額は必須です");
     return;
