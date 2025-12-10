@@ -56,7 +56,7 @@ function addEntry() {
 
 function render() {
   const entries = loadEntries();
-  const historyDiv = document.getElementById("history");
+  const historyDiv = document.getElementById("historyList");
   historyDiv.innerHTML = "";
 
   let monthlySum = 0;
