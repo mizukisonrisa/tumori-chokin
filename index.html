@@ -13,20 +13,16 @@
 
 <h1>ツモリ貯金</h1>
 
+<!-- ここが修正済みの締め日設定 -->
 <div class="settings">
-  <label>締め日：  
-    <label for="closingDay">締め日：</label>
-<select id="closingDay">
-  <option value="">選択してください</option>
-</select>
-
-<button onclick="saveClosingDay()">保存</button>
-  <option value="">選択してください</option>
-</select>
-  </label>
+  <label for="closingDay">締め日：</label>
+  <select id="closingDay">
+    <option value="">選択してください</option>
+  </select>
   <button onclick="saveClosingDay()">保存</button>
 </div>
 
+<!-- 登録フォーム -->
 <div class="form">
   <input type="date" id="dateInput" required>
   <input type="number" id="amountInput" placeholder="¥0" required>
@@ -37,21 +33,27 @@
 <h2>今月の合計：<span id="monthlyTotal">¥0</span></h2>
 
 <div id="encourageBox" class="hidden"></div>
+
+<!-- タブ切り替え -->
 <div class="tabs">
   <button onclick="showTab('history')">履歴</button>
   <button onclick="showTab('monthly')">月ごとの集計</button>
   <button onclick="showTab('chart')">グラフ</button>
 </div>
+
+<!-- 履歴 -->
 <h2>履歴</h2>
 <div id="tab-history">
   <ul id="historyList"></ul>
 </div>
 
+<!-- 月ごとの集計 -->
 <h2>月ごとの集計</h2>
 <div id="tab-monthly" class="hidden">
   <ul id="monthlyList"></ul>
 </div>
 
+<!-- グラフ -->
 <h2>グラフ</h2>
 <div id="tab-chart" class="hidden">
   <canvas id="chartCanvas" width="350" height="250"></canvas>
