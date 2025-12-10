@@ -90,4 +90,10 @@ function render() {
 }
 
 setupClosingDayOptions();
-render();
+function showTab(tab) {
+  document.getElementById("tab-history").classList.add("hidden");
+  document.getElementById("tab-monthly").classList.add("hidden");
+  document.getElementById("tab-chart").classList.add("hidden");
+
+  document.getElementById("tab-" + tab).classList.remove("hidden");
+}
